@@ -1,0 +1,20 @@
+
+# System Requirements
+Operating System: Windows, macOS, or Linux
+Browser: Modern web browser (Chrome, Firefox, Edge)
+
+# Software Requirements
+Python: 3.7+
+Node.js: 16.0+ (if additional frontend development is needed)
+
+# Python Dependencies
+Flask==2.1.2
+SQLAlchemy==1.4.25
+# (Include other specific library versions used in app.py)
+
+# APIs
+Hugchat API: Requires API Key
+Google Calendar API: Requires API Key
+
+# Database
+SQLite: Included with Python

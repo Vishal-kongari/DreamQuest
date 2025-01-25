@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot with Recommendations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Chatbot Section -->
+        <div class="chatbot">
+            <div class="chatbox">
+                <div class="chat-header">
+                    <h2>Chatbot</h2>
+                </div>
+                <div class="messages" id="messages">
+                    <div class="message bot-message">Hello! How can I assist you today?</div>
+                </div>
+                <div class="input-section">
+                    <input type="text" id="userInput" placeholder="Type a message..." />
+                    <button id="sendBtn">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations Section -->
+        <div class="recommendations">
+            <h2>Recommendations</h2>
+            <div class="scrolling-recommendations" id="recommendations">
+                <p>Recommendation 1: Try our latest features.</p>
+                <p>Recommendation 2: Check out our top articles.</p>
+                <p>Recommendation 3: Join our community for more support.</p>
+                <p>Recommendation 4: Explore the new updates in our product.</p>
+                <p>Recommendation 5: Don't miss out on our events.</p>
+                <p>Recommendation 6: Sign up for our newsletter.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

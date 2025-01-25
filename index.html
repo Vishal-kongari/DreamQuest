@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Path Guide</title>
+    <script src="login.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #2c3e50;
+        }
+
+        .navbar-brand {
+            color: #ecf0f1 !important;
+            font-size: 30px; /* Adjust the font size as needed */
+        }
+        .nav-link {
+            color: #ecf0f1 !important;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #16a085, #2c3e50);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .hero-section h1 {
+            font-size: 48px;
+            font-weight: 600;
+        }
+
+        .hero-section p {
+            font-size: 20px;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        .hero-section a {
+            margin-top: 20px;
+        }
+
+        .explore-section {
+            padding: 60px 20px;
+            background-color: #ecf0f1;
+        }
+
+        .explore-section h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .card-text {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+
+        .btn-primary {
+            background-color: #1abc9c;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background-color: #16a085;
+        }
+
+        .login-container {
+            margin: 50px auto;
+            max-width: 420px;
+        }
+
+        .login-box {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-box h2 {
+            font-size: 28px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .form-label {
+            font-size: 16px;
+            color: #2c3e50;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        .form-control:focus {
+            border-color: #1abc9c;
+            box-shadow: 0 0 8px rgba(26, 188, 156, 0.3);
+        }
+
+        .footer {
+            background-color: #34495e;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 16px;
+        }
+
+        .footer a {
+            color: #1abc9c;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .explore-section .row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .explore-section .col-md-4 {
+            flex: 1;
+            max-width: 350px;
+        }
+
+        .explore-section .card-body {
+            text-align: center;
+        }
+
+        .explore-section .btn-primary {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">DreamQuest</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#explore">Explore Careers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1>Find Your Perfect Career Path</h1>
+        <p>Your journey to success starts here. Explore endless opportunities and unlock your potential.</p>
+        <a href="login.html" class="btn btn-light btn-lg">Get Started</a>
+    </div>
+
+    <!-- Explore Careers Section -->
+    <div class="container explore-section" id="explore">
+        <h2 class="text-center">Explore Career Paths</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="eng.png" alt="Engineering" height="200">
+                    <div class="card-body">
+                        <h5 class="card-title">Engineering</h5>
+                        <p class="card-text">Engineering careers, coding, skillsets required, and growth opportunities.</p>
+                        <a href="login.html" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="med.jpeg" class="card-img-top" alt="Medical" height="200" width="100">
+                    <div class="card-body">
+                        <h5 class="card-title">Medical</h5>
+                        <p class="card-text">Discover medical careers, specializations, and how to get started.</p>
+                        <a href="login.html" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="arts.jpg" class="card-img-top" alt="Arts" height="200" width="100">
+                    <div class="card-body">
+                        <h5 class="card-title">Arts</h5>
+                        <p class="card-text">Explore creative fields, Arts, career options, and essential skills.</p>
+                        <a href="login.html" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Section
+    <div class="login-container" id="login">
+        <div class="login-box">
+            <h2 class="text-center mb-4">Login</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" onclick="">Login</button>
+                <div class="text-center mt-3">
+                    <a href="#">Forgot password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+-->
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Career Path Guide. All rights reserved. | <a href="#">Privacy Policy</a></p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
