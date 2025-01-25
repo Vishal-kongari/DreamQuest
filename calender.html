@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduler with Goals</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .roadmap-container, .calendar-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: #ffffff;
+            color: #333;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-roadmap {
+            background-color: #17a2b8;
+            border: none;
+        }
+
+        .btn-roadmap:hover {
+            background-color: #138496;
+        }
+
+        #calendar {
+            margin-top: 20px;
+        }
+
+        .highlight {
+            background-color: #ffcc00 !important;
+        }
+
+        .progress-container {
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Scheduler and Goal Setting</h2>
+
+        <!-- Roadmap Section -->
+        <div class="roadmap-container">
+            <h4>Set Your Goals</h4>
+            <div class="mb-3">
+                <label for="roadmapSelect" class="form-label">Choose a Roadmap</label>
+                <select class="form-select" id="roadmapSelect">
+                    <option value="">Select Roadmap</option>
+                    <option value="webdev">1-2 Week: Web Development Basics</option>
+                    <option value="python">2-3 Weeks: Python Fundamentals</option>
+                    <option value="ml">4 Weeks: Machine Learning Starter</option>
+                    <option value="ds">4 Weeks: Data Science Basics</option>
+                    <option value="react">3 Weeks: React Development</option>
+                    <option value="appdev">5 Weeks: Mobile App Development</option>
+                    <option value="timemanagement">2 Weeks: Time Management Skills</option>
+                    <option value="softskills">3 Weeks: Soft Skills Development</option>
+                    <option value="leadership">4 Weeks: Leadership Skills</option>
+                    <option value="productivity">3 Weeks: Boost Your Productivity</option>
+                </select>
+            </div>
+
+            <!-- Tasks Section -->
+            <div id="taskSection" class="mt-4" style="display: none;">
+                <h5>Tasks for Roadmap</h5>
+                <div id="tasksList"></div>
+                <div id="progressSection" class="progress-container" style="display: none;">
+                    <h6>Progress: <span id="progressPercentage">0%</span></h6>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 0%;" id="progressBar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar Section -->
+        <div class="calendar-container">
+            <h4>Schedule Your Tasks</h4>
+            <div id="calendar"></div>
+        </div>
+    </div>
+
+    <!-- Modal for Custom Task -->
+    <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="taskModalLabel">Add Custom Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="taskForm">
+                        <div class="mb-3">
+                            <label for="taskTitle" class="form-label">Task Title</label>
+                            <input type="text" class="form-control" id="taskTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskStartDate" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="taskStartDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskEndDate" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="taskEndDate" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Task</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const calendarEl = document.getElementById('calendar');
+            const roadmapSelect = document.getElementById('roadmapSelect');
+            const taskSection = document.getElementById('taskSection');
+            const tasksList = document.getElementById('tasksList');
+            const progressSection = document.getElementById('progressSection');
+            const progressBar = document.getElementById('progressBar');
+            const progressPercentage = document.getElementById('progressPercentage');
+            const taskModal = new bootstrap.Modal(document.getElementById('taskModal'));
+            const taskForm = document.getElementById('taskForm');
+            const taskTitle = document.getElementById('taskTitle');
+            const taskStartDate = document.getElementById('taskStartDate');
+            const taskEndDate = document.getElementById('taskEndDate');
+
+            // Roadmap Data with Milestones and Dates
+            const roadmaps = {
+                webdev: [
+                    { title: 'Learn HTML & CSS', days: 2, color: '#FF5733' },
+                    { title: 'Build a Landing Page', days: 4, color: '#33FF57' },
+                    { title: 'Deploy a Website', days: 6, color: '#3357FF' }
+                ],
+                python: [
+                    { title: 'Learn Basics: Variables, Loops', days: 3, color: '#FF33A6' },
+                    { title: 'Practice with Mini Projects', days: 6, color: '#FFC300' },
+                    { title: 'Understand File Handling & OOP', days: 10, color: '#33D9FF' }
+                ],
+                ml: [
+                    { title: 'Understand Linear Regression', days: 5, color: '#FF5733' },
+                    { title: 'Implement k-NN Algorithm', days: 10, color: '#8E44AD' },
+                    { title: 'Train a Classifier', days: 15, color: '#28B463' }
+                ],
+                ds: [
+                    { title: 'Learn NumPy & Pandas', days: 5, color: '#FF6347' },
+                    { title: 'Data Cleaning', days: 10, color: '#1F618D' },
+                    { title: 'Data Visualization', days: 15, color: '#F39C12' }
+                ],
+                react: [
+                    { title: 'Learn JSX & Components', days: 3, color: '#A569BD' },
+                    { title: 'State Management with Hooks', days: 6, color: '#7D3C98' },
+                    { title: 'Build a React App', days: 10, color: '#D35400' }
+                ],
+                appdev: [
+                    { title: 'Set Up Mobile Dev Environment', days: 5, color: '#2980B9' },
+                    { title: 'Create UI Components', days: 10, color: '#27AE60' },
+                    { title: 'Publish App to Store', days: 15, color: '#8E44AD' }
+                ],
+                timemanagement: [
+                    { title: 'Time Blocking for Productivity', days: 3, color: '#2E86C1' },
+                    { title: 'Task Prioritization', days: 4, color: '#7D3C98' },
+                    { title: 'Overcoming Procrastination', days: 5, color: '#28B463' }
+                ],
+                softskills: [
+                    { title: 'Communication Skills', days: 4, color: '#F39C12' },
+                    { title: 'Emotional Intelligence', days: 5, color: '#D35400' },
+                    { title: 'Conflict Resolution', days: 6, color: '#1F618D' }
+                ],
+                leadership: [
+                    { title: 'Team Leadership Basics', days: 5, color: '#FF5733' },
+                    { title: 'Delegation Techniques', days: 6, color: '#33D9FF' },
+                    { title: 'Decision Making and Problem Solving', days: 8, color: '#8E44AD' }
+                ],
+                productivity: [
+                    { title: 'Creating Productive Habits', days: 4, color: '#FFC300' },
+                    { title: 'Time Management Strategies', days: 5, color: '#FF6347' },
+                    { title: 'Goal Setting for Success', days: 6, color: '#FF33A6' }
+                ]
+            };
+
+            // Initialize FullCalendar
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                editable: true,
+                selectable: true,
+                events: [],
+                headerToolbar: {
+                    start: 'prev,next today',
+                    center: 'title',
+                    end: 'dayGridMonth,timeGridWeek'
+                }
+            });
+            calendar.render();
+
+            // Load Roadmap Details
+            roadmapSelect.addEventListener('change', function () {
+                const selectedRoadmap = roadmaps[this.value];
+                if (selectedRoadmap) {
+                    tasksList.innerHTML = ''; // Clear previous tasks
+                    selectedRoadmap.forEach((milestone, index) => {
+                        const startDate = new Date();
+                        startDate.setDate(startDate.getDate() + (index * 3));  // Increment by 3 days for each task (for demo)
+
+                        const endDate = new Date(startDate);
+                        endDate.setDate(startDate.getDate() + milestone.days);  // Add days to get end date
+
+                        const taskDiv = document.createElement('div');
+                        taskDiv.classList.add('form-check');
+                        taskDiv.innerHTML = ` 
+                            <input class="form-check-input" type="checkbox" id="task${index}" data-start="${startDate.toISOString()}" data-end="${endDate.toISOString()}">
+                            <label class="form-check-label" for="task${index}">
+                                ${milestone.title} (Start: ${startDate.toLocaleDateString()} - End: ${endDate.toLocaleDateString()})
+                            </label>
+                        `;
+                        tasksList.appendChild(taskDiv);
+
+                        // Add the task to the calendar with color
+                        calendar.addEvent({
+                            title: milestone.title,
+                            start: startDate,
+                            end: endDate,
+                            allDay: true,
+                            backgroundColor: milestone.color,  // Set the color of the task
+                            borderColor: milestone.color  // Ensure the border is also colored
+                        });
+                    });
+                    taskSection.style.display = 'block';
+                    progressSection.style.display = 'block';
+                    updateProgress();
+                }
+            });
+
+            // Update Progress
+            tasksList.addEventListener('change', updateProgress);
+
+            function updateProgress() {
+                const totalTasks = tasksList.querySelectorAll('.form-check-input').length;
+                const completedTasks = tasksList.querySelectorAll('.form-check-input:checked').length;
+                const progress = (completedTasks / totalTasks) * 100;
+
+                progressBar.style.width = `${progress}%`;
+                progressPercentage.textContent = `${Math.round(progress)}%`;
+            }
+
+            // Add Custom Task
+            taskForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const taskTitleValue = taskTitle.value;
+                const taskStartDateValue = taskStartDate.value;
+                const taskEndDateValue = taskEndDate.value;
+
+                // Define a default color for custom tasks
+                const customColor = '#FF5733';
+
+                // Add the custom task to the calendar with a color
+                calendar.addEvent({
+                    title: taskTitleValue,
+                    start: taskStartDateValue,
+                    end: taskEndDateValue,
+                    allDay: true,
+                    backgroundColor: customColor,  // Set custom color for the task
+                    borderColor: customColor  // Ensure border color is same as background
+                });
+
+                taskModal.hide();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -10,55 +10,53 @@
 
     <style>
         body {
-            background: #f0f4f8;
-            font-family: Arial, sans-serif;
-        }
-
-        .signup-container {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #2b2dff, #6e7dff);
+            color: #ffffff;
         }
 
-        .signup-box {
-            background-color: #ffffff;
+        .form-container {
+            background: #ffffff;
+            color: #333;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 400px;
         }
 
-        h2 {
+        .form-container h2 {
             font-size: 28px;
-            color: #333;
+            font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
+            color: #0072ff;
         }
 
         .btn-primary {
-            background-color: #007bff;
+            background: #0072ff;
             border: none;
-            border-radius: 10px;
             padding: 10px;
-            width: 100%;
+            border-radius: 10px;
+            transition: background 0.3s ease;
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
+            background: #005bb5;
         }
 
         .links {
-            margin-top: 20px;
             text-align: center;
+            margin-top: 15px;
         }
 
         .links a {
             text-decoration: none;
-            color: #007bff;
-            font-size: 14px;
+            color: #0072ff;
+            font-weight: bold;
         }
 
         .links a:hover {
@@ -67,31 +65,29 @@
     </style>
 </head>
 <body>
-    <div class="signup-container">
-        <div class="signup-box">
-            <h2>Sign Up</h2>
-            <form>
-                <div class="mb-3">
-                    <label for="fullname" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" id="fullname" placeholder="Enter your full name">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter a password">
-                </div>
-                <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter your password">
-                </div>
-                <button type="submit" class="btn btn-primary">Sign Up</button>
-            </form>
-            <div class="links">
-                <a href="login.html">Back to Login</a>
+    <div class="form-container">
+        <h2>Create Account</h2>
+        <form>
+            <div class="mb-3">
+                <label for="fullname" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullname" placeholder="Enter your full name">
             </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter a password">
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter your password">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+        </form>
+        <div class="links">
+            <a href="login.html">Back to Login</a>
         </div>
     </div>
     

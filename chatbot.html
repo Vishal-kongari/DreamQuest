@@ -4,40 +4,151 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot with Recommendations</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .chatbot-header, .recommendations-header {
+            background-color: #2c3e50;
+        }
+
+        .message {
+            margin: 10px 0;
+        }
+
+        .user-message {
+            text-align: right;
+        }
+
+        .bot-message {
+            text-align: left;
+        }
+
+        .scrolling-recommendations {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .user-logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        #messages {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Chatbot Section -->
-        <div class="chatbot">
-            <div class="chatbox">
-                <div class="chat-header">
-                    <h2>Chatbot</h2>
-                </div>
-                <div class="messages" id="messages">
-                    <div class="message bot-message">Hello! How can I assist you today?</div>
-                </div>
-                <div class="input-section">
-                    <input type="text" id="userInput" placeholder="Type a message..." />
-                    <button id="sendBtn">Send</button>
-                </div>
-            </div>
+    <!-- Top Panel -->
+    <div class="top-panel d-flex justify-content-between align-items-center p-3">
+        <div class="logo">
+            <h2 class="text-white">DreamQuest</h2>
         </div>
+        <div class="user-section dropdown">
+            <img src="https://via.placeholder.com/40" alt="User Logo" class="user-logo rounded-circle">
+            <button class="btn btn-light dropdown-toggle ms-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Username
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+        </div>
+    </div>
 
-        <!-- Recommendations Section -->
-        <div class="recommendations">
-            <h2>Recommendations</h2>
-            <div class="scrolling-recommendations" id="recommendations">
-                <p>Recommendation 1: Try our latest features.</p>
-                <p>Recommendation 2: Check out our top articles.</p>
-                <p>Recommendation 3: Join our community for more support.</p>
-                <p>Recommendation 4: Explore the new updates in our product.</p>
-                <p>Recommendation 5: Don't miss out on our events.</p>
-                <p>Recommendation 6: Sign up for our newsletter.</p>
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <!-- Chatbot Section -->
+            <div class="col-md-8">
+                <div class="card shadow-lg chatbot-card">
+                    <div class="card-header text-white chatbot-header">
+                        <h2 class="mb-0">Chatbot</h2>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <!-- Chat Messages -->
+                        <div class="messages flex-grow-1 overflow-auto" id="messages">
+                            <div class="message bot-message">
+                                <span class="badge bg-info">Bot</span> Hello! How can I assist you today?
+                            </div>
+                        </div>
+
+                        <!-- Input Section -->
+                        <div class="input-section d-flex mt-3">
+                            <input type="text" class="form-control" id="userInput" placeholder="Type a message..." />
+                            <button class="btn btn-primary ms-2" id="sendBtn">Send</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations Section -->
+                <div class="card shadow-lg recommendations-card mt-4">
+                    <div class="card-header text-white recommendations-header">
+                        <h2 class="mb-0">Recommendations</h2>
+                    </div>
+                    <div class="card-body scrolling-recommendations" id="recommendations">
+                        <p><span class="badge bg-success">1</span> Try our latest features.</p>
+                        <p><span class="badge bg-warning">2</span> Check out our top articles.</p>
+                        <p><span class="badge bg-danger">3</span> Join our community for more support.</p>
+                        <p><span class="badge bg-primary">4</span> Explore the new updates in our product.</p>
+                        <p><span class="badge bg-secondary">5</span> Don't miss out on our events.</p>
+                        <p><span class="badge bg-dark">6</span> Sign up for our newsletter.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+        const sendBtn = document.getElementById('sendBtn');
+        const userInput = document.getElementById('userInput');
+        const messagesDiv = document.getElementById('messages');
+
+        // Bot replies
+        const botReplies = {
+            "hello": "Hello! How can I help you today?",
+            "how are you": "I'm just a bot, but I'm here to help you!",
+            "what is this": "This is a chatbot designed to assist you with DreamQuest.",
+            "bye": "Goodbye! Have a great day!",
+        };
+
+        // Handle sending messages
+        sendBtn.addEventListener('click', () => {
+            const userMessage = userInput.value.trim();
+            if (userMessage) {
+                appendMessage(userMessage, 'user-message');
+                botReply(userMessage.toLowerCase());
+                userInput.value = '';
+            }
+        });
+
+        // Append message to chat
+        function appendMessage(text, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', type);
+            messageDiv.innerHTML = `<span class="badge bg-${type === 'user-message' ? 'primary' : 'info'}">${type === 'user-message' ? 'You' : 'Bot'}</span> ${text}`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Bot's response
+        function botReply(userMessage) {
+            const reply = botReplies[userMessage] || "Sorry, I didn't understand that. Can you rephrase?";
+            setTimeout(() => {
+                appendMessage(reply, 'bot-message');
+            }, 500);
+        }
+    </script>
 </body>
 </html>

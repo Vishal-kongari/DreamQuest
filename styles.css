@@ -1,64 +1,111 @@
-
+/* Body Styling */
 body {
-    background: #f0f4f8; /* Light background color for a professional feel */
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
     font-family: 'Arial', sans-serif;
 }
 
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #6e7dff, #2b2dff); /* Gradient background */
+/* Gradient Animation */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-.login-box {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 15px; /* Rounded corners for the box */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+/* Top Panel */
+.top-panel {
+    background-color: #21b8f3; /* Blue */
+    color: white;
     width: 100%;
-    max-width: 400px; /* Limit the width for a cleaner look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-h2 {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 20px;
+.user-logo {
+    height: 40px;
+    width: 40px;
 }
 
-.input-group {
-    margin-bottom: 15px;
-}
-
-.form-control {
-    border-radius: 10px; /* Rounded input fields */
-    border: 1px solid #ddd;
-}
-
-.btn-primary {
-    background-color: #007bff;
+/* Chatbot Section */
+.chatbot-card {
     border: none;
-    border-radius: 10px;
+    background-color: #e3f2fd; /* Light Blue */
+    border-radius: 15px;
+}
+
+.chatbot-header {
+    background-color: #258ce0; /* Blue */
+    border-radius: 15px 15px 0 0;
+}
+
+.messages {
     padding: 10px;
-    width: 100%;
-    transition: background-color 0.3s;
+    background-color: #ffffff; /* White */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-
-.forgot-password {
-    text-align: right;
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
     font-size: 14px;
 }
 
-.forgot-password a {
-    color: #007bff;
-    text-decoration: none;
+.bot-message {
+    background-color: #e1f5fe; /* Light Cyan */
+    color: #090907; /* Dark Blue */
 }
 
-.forgot-password a:hover {
-    text-decoration: underline;
+.input-section {
+    margin-top: 10px;
+}
+
+/* Recommendations Section */
+.recommendations-card {
+    border: none;
+    background-color: #fff8e1; /* Light Yellow */
+    border-radius: 15px;
+}
+
+.recommendations-header {
+    background-color: #ff9800; /* Orange */
+    border-radius: 15px 15px 0 0;
+}
+
+.scrolling-recommendations {
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #fffde7; /* Light Yellow */
+    border: 1px solid #ffd54f;
+    border-radius: 10px;
+}
+
+.scrolling-recommendations p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Buttons and Inputs */
+input[type="text"] {
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+}
+
+button {
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #1565c0; /* Darker Blue */
+    transform: scale(1.05);
 }
