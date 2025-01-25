@@ -95,12 +95,6 @@ We welcome contributions to DreamQuest!
 
 ---
 
-## **License**  
-
-This project is licensed under the MIT License.  
-
----
-
 ## **Project Status**  
 
 The project is actively maintained, with continuous enhancements being developed. Contributions and feedback are encouraged to make DreamQuest even better!  
