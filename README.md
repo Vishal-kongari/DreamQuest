@@ -97,4 +97,4 @@ We welcome contributions to DreamQuest!
 
 ## **Project Status**  
 
-The project is actively maintained, with continuous enhancements being developed. Contributions and feedback are encouraged to make DreamQuest even better!  
+The project is actively maintained, with continuous enhancements being developed, still there a lot things need to added which enhance the website. Contributions and feedback are encouraged to make DreamQuest even better!  
