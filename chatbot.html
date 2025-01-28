@@ -111,73 +111,52 @@
 
     <!-- Custom JS -->
     <script>
-        
-            const sendBtn = document.getElementById('sendBtn');
-            const userInput = document.getElementById('userInput');
-            const messagesDiv = document.getElementById('messages');
-    
-            sendBtn.addEventListener('click', () => {
-                const userMessage = userInput.value.trim();
-                if (userMessage) {
-                    appendMessage(userMessage, 'user-message');
-                    userInput.value = '';
-                    getBotResponse(userMessage);
-                }
-            });
-    
-            function appendMessage(text, type) {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('message', type);
-                messageDiv.innerHTML = <span class="badge bg-${type === 'user-message' ? 'primary' : 'info'}">${type === 'user-message' ? 'You' : 'Bot'}</span> ${text};
-                messagesDiv.appendChild(messageDiv);
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        const sendBtn = document.getElementById('sendBtn');
+        const userInput = document.getElementById('userInput');
+        const messagesDiv = document.getElementById('messages');
+
+        sendBtn.addEventListener('click', () => {
+            const userMessage = userInput.value.trim();
+            if (userMessage) {
+                appendMessage(userMessage, 'user-message');
+                userInput.value = '';
+                getBotResponse(userMessage);
             }
-    
-            // Fetch bot response from Fl
-            async function getBotResponse(userMessage) {
-                try {
-                    const response = await fetch('http://localhost:5000/chat', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ message: userMessage })
-                    });
-    
-                    if (!response.ok) {
-                        throw new Error("Failed to fetch response from the server");
-                    }
-    
-                    const data = await response.json();
-                    const botMessage = data.response || "Sorry, I didn't understand that. Can you rephrase?";
-                    setTimeout(() => {
-                        appendMessage(botMessage, 'bot-message');
-                    }, 500);
-                } catch (error) {
-                    console.error("Error:", error);
-                    appendMessage("Sorry, something went wrong. Please try again later.", 'bot-message');
+        });
+
+        function appendMessage(text, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', type);
+            messageDiv.innerHTML = `<span class="badge bg-${type === 'user-message' ? 'primary' : 'info'}">${type === 'user-message' ? 'You' : 'Bot'}</span> ${text}`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Fetch bot response from Flask
+        async function getBotResponse(userMessage) {
+            try {
+                const response = await fetch('http://localhost:5000/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: userMessage })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch response from the server");
                 }
+
+                const data = await response.json();
+                const botMessage = data.response || "Sorry, I didn't understand that. Can you rephrase?";
+                setTimeout(() => {
+                    appendMessage(botMessage, 'bot-message');
+                }, 500);
+            } catch (error) {
+                console.error("Error:", error);
+                appendMessage("Sorry, something went wrong. Please try again later.", 'bot-message');
             }
-        </script>
-    </body>
-    </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
+    </script>
+</body>
+</html>
