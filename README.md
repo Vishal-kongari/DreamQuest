@@ -10,7 +10,7 @@ DreamQuest is an AI-driven career education platform designed to empower student
 
 1. Clone the repository:
    ```bash
-   git clone https://code.swecha.org/Vishal_Kongari/dreamquest.git
+   git clone https://github.com/Vishal-kongari/DreamQuest
    cd dreamquest
    ```
 2. Install dependencies:
